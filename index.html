@@ -116,7 +116,7 @@
             </div>
         </section>
 
-        <!-- SECCIÓN REGISTRO DINÁMICO CON JAVASCRIPT (Semana 5) -->
+        <!-- SECCIÓN REGISTRO DINÁMICO CON JAVASCRIPT -->
         <section id="dinamica" class="mb-5 p-4 bg-white rounded shadow-sm">
             <h2 class="fw-bold mb-3 text-dark text-center">Registro Dinámico de Pedidos o Solicitudes</h2>
             <p class="text-muted text-center mb-4">Agrega nuevos productos, pedidos o requerimientos directamente al sistema en tiempo real sin recargar la página.</p>
@@ -124,27 +124,41 @@
             <div id="alertaMensaje"></div>
 
             <div class="row">
-                <!-- Formulario Dinámico -->
+                <!-- Formulario Dinámico con validaciones -->
                 <div class="col-lg-5 mb-4">
-                    <form id="pedidoForm" class="p-3 bg-light rounded shadow-sm">
+                    <form id="pedidoForm" class="p-3 bg-light rounded shadow-sm" novalidate>
                         <h3 class="h5 fw-bold mb-3 text-dark">Nuevo Registro</h3>
+                        
+                        <!-- Campo Nombre -->
                         <div class="mb-3">
                             <label for="clienteNombre" class="form-label">Nombre del Cliente / Producto</label>
-                            <input type="text" class="form-control" id="clienteNombre" placeholder="Ej. Juan Pérez o Café Mocha" required>
+                            <input type="text" class="form-control" id="clienteNombre" placeholder="Ej. Juan Pérez" required>
+                            <div class="valid-feedback">¡El nombre es correcto!</div>
+                            <div class="invalid-feedback">Debe iniciar con mayúscula y tener al menos 3 letras.</div>
                         </div>
+                        
+                        <!-- Campo Categoría -->
                         <div class="mb-3">
                             <label for="pedidoCategoria" class="form-label">Categoría / Tipo</label>
-                            <select class="form-select" id="pedidoCategoria">
+                            <select class="form-select" id="pedidoCategoria" required>
+                                <option value="">Seleccione una opción...</option>
                                 <option value="Bebida">Bebida</option>
                                 <option value="Repostería">Repostería</option>
                                 <option value="Desayuno">Desayuno</option>
                                 <option value="Servicio Web">Servicio Web</option>
                             </select>
+                            <div class="valid-feedback">¡Categoría seleccionada!</div>
+                            <div class="invalid-feedback">Debe seleccionar una categoría de la lista.</div>
                         </div>
+                        
+                        <!-- Campo Descripción -->
                         <div class="mb-3">
                             <label for="pedidoDescripcion" class="form-label">Descripción o Detalle</label>
                             <textarea class="form-control" id="pedidoDescripcion" rows="3" placeholder="Detalles del pedido..." required></textarea>
+                            <div class="valid-feedback">¡Descripción válida!</div>
+                            <div class="invalid-feedback">Ingrese información suficiente (mínimo 10 caracteres).</div>
                         </div>
+                        
                         <button type="submit" class="btn btn-custom w-100">Agregar al Sistema</button>
                     </form>
                 </div>
@@ -212,7 +226,7 @@
 
     <!-- Bootstrap JS Bundle CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Archivo JavaScript Externo (Semana 5) -->
-    <script src="js/script.js"></script>
+    <!-- Archivo JavaScript Externo -->
+   <script src="js/script.js"></script>
 </body>
 </html>
