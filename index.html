@@ -4,86 +4,217 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Gestión - Cafetería de Mary</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilos CSS3 Personalizados -->
+    <style>
+        :root {
+            --color-primario: #4a3525;
+            --color-secundario: #c8963e;
+            --color-fondo: #fcf8f2;
+        }
+        body {
+            background-color: var(--color-fondo);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        header.bg-cafe {
+            background: linear-gradient(rgba(74, 53, 37, 0.85), rgba(74, 53, 37, 0.85)), url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+        }
+        .card-custom {
+            border: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .card-img-top {
+            height: 180px;
+            object-fit: cover;
+        }
+        .btn-custom {
+            background-color: var(--color-secundario);
+            color: white;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #b08232;
+            color: white;
+        }
+        footer {
+            background-color: var(--color-primario);
+            color: white;
+        }
+        @media (max-width: 768px) {
+            header.bg-cafe { padding: 50px 0; }
+            h1 { font-size: 1.6rem; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- CABECERA -->
-    <header>
-        <h1>Sistema de Gestión de Ventas Cafetería de Mary</h1>
-        <p>Plataforma para administrar clientes, productos y facturación</p>
-    </header>
-
-    <!-- MENÚ DE NAVEGACIÓN -->
-    <nav>
-        <ul>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#quienes-somos">Quiénes Somos</a></li>
-            <li><a href="#servicios">Servicios o Productos</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
+    <!-- MENÚ DE NAVEGACIÓN RESPONSIVO -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#inicio">☕ Cafetería de Mary</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#quienes-somos">Quiénes Somos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
+    <!-- CABECERA -->
+    <header class="bg-cafe text-center shadow-lg mb-5">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-3">¡Bienvenidos a la Cafetería de Mary!</h1>
+            <p class="lead fs-4">Disfruta del mejor café y repostería artesanal, gestionado con la máxima calidad.</p>
+        </div>
+    </header>
+
     <!-- CONTENIDO PRINCIPAL -->
-    <main>
+    <main class="container mb-5">
         
-        <!-- SECCIÓN: INICIO -->
-        <section id="inicio">
-            <h2>Inicio</h2>
-            <p>Bienvenido al Sistema de Gestión de Ventas de la Cafetería de Mary, la plataforma digital centralizada para el control total de nuestra facturación, inventario de productos y administración de clientes.</p>
+        <!-- SECCIÓN INICIO -->
+        <section id="inicio" class="mb-5 text-center p-4 bg-white rounded shadow-sm">
+            <h2 class="fw-bold mb-3 text-dark">Inicio</h2>
+            <p class="text-muted fs-5">Nos alegra tenerte por aquí. En nuestra casa combinamos la pasión por el buen café con un espacio acogedor y un sistema digital moderno para brindarte una atención rápida, cálida y de excelente calidad en cada visita.</p>
+            <a href="#servicios" class="btn btn-custom btn-lg mt-2">Ver Catálogo de Productos</a>
         </section>
 
-        <!-- SECCIÓN: QUIÉNES SOMOS -->
-        <section id="quienes-somos">
-            <h2>Quiénes Somos</h2>
-            <article>
-                <p>La Cafetería de Mary nació con el propósito de ofrecer los mejores postres y bebidas de la ciudad, brindando un ambiente cálido y acogedor para todos nuestros clientes. Con el crecimiento constante de nuestro emprendimiento y el aumento en el volumen de pedidos, identificamos la necesidad vital de implementar una solución tecnológica que nos permitiera optimizar todos nuestros procesos diarios. Es así como surge este Sistema de Gestión de Ventas, una plataforma digital integral diseñada específicamente para administrar de manera eficiente y rápida nuestra base de clientes, el inventario detallado de nuestros deliciosos productos y la facturación diaria. Nuestro objetivo principal es reducir significativamente los tiempos de espera, llevar un control financiero exacto de las ventas y mejorar la experiencia global de cada persona que nos visita. Gracias a este moderno sistema web, todo el equipo de la cafetería puede enfocarse plenamente en lo que mejor sabe hacer: preparar bebidas de altísima calidad y repostería excepcional, mientras el software se encarga de toda la carga administrativa y contable de manera automática.</p>
-                <!-- Imagen de la cafetería -->
-                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800&auto=format&fit=crop" alt="Interior de la Cafetería" width="600" style="border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);">            </article>
+        <!-- SECCIÓN QUIÉNES SOMOS -->
+        <section id="quienes-somos" class="mb-5 p-4 bg-white rounded shadow-sm">
+            <h2 class="fw-bold mb-4 text-dark text-center">Quiénes Somos</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <article>
+                        <p class="text-muted">La Cafetería de Mary nació con el propósito de ofrecer los mejores postres y bebidas de la ciudad, brindando un ambiente cálido y acogedor. Con el crecimiento constante, implementamos esta solución tecnológica para optimizar nuestros procesos de inventario y atención al cliente.</p>
+                        <p class="text-muted">Este sistema web integral permite administrar nuestra base de datos de manera eficiente, llevando un control financiero exacto y mejorando la experiencia de cada persona que nos visita. Nuestro objetivo es que nuestro equipo se enfoque en lo que mejor sabe hacer: preparar café y repostería excepcional.</p>
+                    </article>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800&auto=format&fit=crop" alt="Interior" class="img-fluid rounded shadow">
+                </div>
+            </div>
         </section>
 
-        <!-- SECCIÓN: SERVICIOS O PRODUCTOS -->
-        <section id="servicios">
-            <h2>Servicios o Productos</h2>
-            <ul>
-                <li>Café de especialidad (Americano, Espresso, Latte, Frappé)</li>
-                <li>Repostería artesanal (Cheesecake, Tiramisú, Galletas)</li>
-                <li>Módulo de registro y fidelización de clientes</li>
-                <li>Generación de facturas electrónicas y reportes de ventas</li>
-            </ul>
+        <!-- SECCIÓN SERVICIOS O PRODUCTOS (CON IMÁGENES EN CADA TARJETA) -->
+        <section id="servicios" class="mb-5">
+            <h2 class="fw-bold mb-4 text-dark text-center">Catálogo de Servicios y Productos</h2>
+            <div class="row g-4">
+                <!-- Tarjeta 1: Café -->
+                <div class="col-md-4">
+                    <div class="card card-custom h-100 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600&auto=format&fit=crop" class="card-img-top" alt="Café de Especialidad">
+                        <div class="card-body">
+                            <h3 class="card-title h5 fw-bold text-dark">☕ Cafés de Especialidad</h3>
+                            <p class="card-text text-muted">Americano, Espresso tradicional, Latte suave, Capuchino cremoso y Frappés refrescantes.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tarjeta 2: Repostería -->
+                <div class="col-md-4">
+                    <div class="card card-custom h-100 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600&auto=format&fit=crop" class="card-img-top" alt="Repostería Artesanal">
+                        <div class="card-body">
+                            <h3 class="card-title h5 fw-bold text-dark">🍰 Repostería Artesanal</h3>
+                            <p class="card-text text-muted">Cheesecakes, tiramisú casero, croissants recién horneados y galletas de mantequilla.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tarjeta 3: Desayunos / Snacks (Empanadas / Tostadas) -->
+                <div class="col-md-4">
+                    <div class="card card-custom h-100 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=600&auto=format&fit=crop" class="card-img-top" alt="Desayunos y Snacks">
+                        <div class="card-body">
+                            <h3 class="card-title h5 fw-bold text-dark">🥐 Desayunos y Snacks</h3>
+                            <p class="card-text text-muted">Tostadas francesas, sánduches, empanadas crujientes y bowls de fruta fresca al instante.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tarjeta 4: Facturación -->
+                <div class="col-md-6">
+                    <div class="card card-custom h-100 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop" class="card-img-top" alt="Módulo de Facturación">
+                        <div class="card-body">
+                            <h3 class="card-title h5 fw-bold text-dark">💻 Módulo de Facturación</h3>
+                            <p class="card-text text-muted">Emisión inmediata y automatizada de notas de venta y comprobantes electrónicos para nuestros clientes.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tarjeta 5: Inventario -->
+                <div class="col-md-6">
+                    <div class="card card-custom h-100 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=600&auto=format&fit=crop" class="card-img-top" alt="Control de Inventario">
+                        <div class="card-body">
+                            <h3 class="card-title h5 fw-bold text-dark">📦 Control de Inventario</h3>
+                            <p class="card-text text-muted">Monitoreo en tiempo real de insumos, granos de café, lácteos y productos terminados en bodega.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- SECCIÓN: CONTACTO -->
-        <section id="contacto">
-            <h2>Contacto</h2>
-            <p><strong>Correo electrónico:</strong> <a href="mailto:info@cafeteriamary.com">info@cafeteriamary.com</a></p>
-            <p><strong>Teléfono:</strong> <a href="tel:+593990504129">+593 99 0504129</a></p>
-            <p><strong>Dirección:</strong> Av. Principal y Calle Secundaria</p>
-            <p><strong>Redes Sociales:</strong> 
-                <a href="https://facebook.com" target="_blank">Facebook</a> | 
-                <a href="https://instagram.com" target="_blank">Instagram</a>
-            </p>
-            
-            <br>
-            <h3>Conoce más sobre nuestra pasión por el café</h3>
-            <!-- Video insertado de YouTube -->
-           <iframe width="560" height="315" src="https://www.youtube.com/embed/72kUZ1LaI7U?si=Uq55W99lag4Q2F05" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </section>
+        <!-- SECCIÓN CONTACTO -->
+        <section id="contacto" class="mb-5 p-4 bg-white rounded shadow-sm">
+            <h2 class="fw-bold mb-4 text-dark text-center">Contacto y Redes Sociales</h2>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <p class="mb-2"><strong>Correo:</strong> info@cafeteriamary.com</p>
+                    <p class="mb-2"><strong>Teléfono:</strong> +593 99 050 4129</p>
+                    <p class="mb-3"><strong>Dirección:</strong> Av. Principal y Calle Secundaria, Santo Domingo</p>
+                    
+                    <h5 class="fw-bold mt-4 mb-3">¡Síguenos y contáctanos!</h5>
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        <a href="https://facebook.com" target="_blank" class="btn btn-outline-primary btn-sm px-3">Facebook</a>
+                        <a href="https://instagram.com" target="_blank" class="btn btn-outline-danger btn-sm px-3">Instagram</a>
+                        <a href="https://tiktok.com" target="_blank" class="btn btn-outline-dark btn-sm px-3">TikTok</a>
+                        <a href="https://wa.me/593990504129" target="_blank" class="btn btn-outline-success btn-sm px-3">WhatsApp</a>
+                    </div>
 
+                    <div class="ratio ratio-16x9 shadow-sm rounded overflow-hidden">
+                        <iframe src="https://www.youtube.com/embed/dO-uKGsDApo" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <form action="#" class="p-3 bg-light rounded shadow-sm">
+                        <h3 class="h5 fw-bold mb-3 text-dark">Envíanos un mensaje</h3>
+                        <div class="mb-3"><label class="form-label">Nombre</label><input type="text" class="form-control" required></div>
+                        <div class="mb-3"><label class="form-label">Correo electrónico</label><input type="email" class="form-control" required></div>
+                        <div class="mb-3"><label class="form-label">Asunto</label><input type="text" class="form-control"></div>
+                        <div class="mb-3"><label class="form-label">Mensaje</label><textarea class="form-control" rows="3" required></textarea></div>
+                        <button type="submit" class="btn btn-custom w-100">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- INFORMACIÓN SECUNDARIA (ASIDE) -->
-    <aside>
-        <h3>Información Adicional</h3>
-        <p><strong>Horarios de atención:</strong> Lunes a Sábado de 08:00 a 20:00</p>
-        <p><strong>¡Promoción activa!:</strong> Todos los viernes recibe un 20% de descuento en facturas mayores a $15.00 al estar registrado en nuestro sistema.</p>
+    <aside class="container mb-5">
+        <div class="p-4 bg-white border-start border-4 border-warning rounded shadow-sm">
+            <h3 class="h5 fw-bold text-dark">Promoción de la Semana</h3>
+            <p class="text-muted mb-0">¡20% de descuento en repostería artesanal los días miércoles al comprar cualquier café de especialidad!</p>
+        </div>
     </aside>
 
-    <!-- PIE DE PÁGINA -->
-    <footer>
-        <p>Desarrollado por: Diana Menendez</p>
-        <p>Asignatura: Desarrollo de Aplicaciones Web</p>
-        <p>Año: 2026</p>
+    <footer class="text-center py-4 text-white">
+        <p class="mb-0">Desarrollado por Diana Menendez | Asignatura: Desarrollo Web | Año: 2026</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
