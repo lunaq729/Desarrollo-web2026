@@ -11,7 +11,10 @@
 </head>
 <body>
 
-    <!-- MENÚ DE NAVEGACIÓN RESPONSIVO -->
+    <!-- ========================================== -->
+    <!-- INICIO PLANTILLA BASE (futuro base.html)   -->
+    <!-- ========================================== -->
+    
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
         <div class="container">
             <a class="navbar-brand fw-bold" href="#inicio">☕ Cafetería de Mary</a>
@@ -30,15 +33,16 @@
         </div>
     </nav>
 
-    <!-- CABECERA -->
     <header class="bg-cafe text-center shadow-lg mb-5">
         <div class="container">
             <h1 class="display-3 fw-bold mb-3">¡Bienvenidos a la Cafetería de Mary!</h1>
             <p class="lead fs-4">Disfruta del mejor café y repostería artesanal, gestionado con la máxima calidad.</p>
         </div>
     </header>
-
-    <!-- CONTENIDO PRINCIPAL -->
+    
+    <!-- ========================================== -->
+    <!-- INICIO BLOQUE DE CONTENIDO DINÁMICO        -->
+    <!-- ========================================== -->
     <main class="container mb-5">
         
         <!-- SECCIÓN INICIO -->
@@ -64,7 +68,7 @@
             </div>
         </section>
 
-        <!-- SECCIÓN SERVICIOS O PRODUCTOS (CON LAS IMÁGENES) -->
+        <!-- SECCIÓN SERVICIOS O PRODUCTOS -->
         <section id="servicios" class="mb-5">
             <h2 class="fw-bold mb-4 text-dark text-center">Catálogo de Servicios y Productos</h2>
             <div class="row g-4">
@@ -116,20 +120,18 @@
             </div>
         </section>
 
-        <!-- SECCIÓN REGISTRO DINÁMICO CON JAVASCRIPT -->
+        <!-- SECCIÓN REGISTRO DINÁMICO (Semana 7) -->
         <section id="dinamica" class="mb-5 p-4 bg-white rounded shadow-sm">
-            <h2 class="fw-bold mb-3 text-dark text-center">Registro Dinámico de Pedidos o Solicitudes</h2>
-            <p class="text-muted text-center mb-4">Agrega nuevos productos, pedidos o requerimientos directamente al sistema en tiempo real sin recargar la página.</p>
+            <h2 class="fw-bold mb-3 text-dark text-center">Registro Dinámico de Pedidos</h2>
+            <p class="text-muted text-center mb-4">Esta sección se renderiza dinámicamente utilizando Arreglos y Objetos en JavaScript.</p>
             
             <div id="alertaMensaje"></div>
 
             <div class="row">
-                <!-- Formulario Dinámico con validaciones -->
                 <div class="col-lg-5 mb-4">
                     <form id="pedidoForm" class="p-3 bg-light rounded shadow-sm" novalidate>
                         <h3 class="h5 fw-bold mb-3 text-dark">Nuevo Registro</h3>
                         
-                        <!-- Campo Nombre -->
                         <div class="mb-3">
                             <label for="clienteNombre" class="form-label">Nombre del Cliente / Producto</label>
                             <input type="text" class="form-control" id="clienteNombre" placeholder="Ej. Juan Pérez" required>
@@ -137,7 +139,6 @@
                             <div class="invalid-feedback">Debe iniciar con mayúscula y tener al menos 3 letras.</div>
                         </div>
                         
-                        <!-- Campo Categoría -->
                         <div class="mb-3">
                             <label for="pedidoCategoria" class="form-label">Categoría / Tipo</label>
                             <select class="form-select" id="pedidoCategoria" required>
@@ -145,13 +146,11 @@
                                 <option value="Bebida">Bebida</option>
                                 <option value="Repostería">Repostería</option>
                                 <option value="Desayuno">Desayuno</option>
-                                <option value="Servicio Web">Servicio Web</option>
                             </select>
                             <div class="valid-feedback">¡Categoría seleccionada!</div>
                             <div class="invalid-feedback">Debe seleccionar una categoría de la lista.</div>
                         </div>
                         
-                        <!-- Campo Descripción -->
                         <div class="mb-3">
                             <label for="pedidoDescripcion" class="form-label">Descripción o Detalle</label>
                             <textarea class="form-control" id="pedidoDescripcion" rows="3" placeholder="Detalles del pedido..." required></textarea>
@@ -163,22 +162,21 @@
                     </form>
                 </div>
 
-                <!-- Visualizador de Registros Dinámicos -->
                 <div class="col-lg-7">
                     <div class="p-3 bg-light rounded shadow-sm h-100">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h3 class="h5 fw-bold text-dark mb-0">Lista de Registros Activos</h3>
-                            <span id="totalRegistros" class="badge bg-secondary fs-6">Total de registros actuales: 0</span>
+                            <h3 class="h5 fw-bold text-dark mb-0">Lista de Registros</h3>
+                            <span id="totalRegistros" class="badge bg-secondary fs-6">Total: 0</span>
                         </div>
                         <div id="listaPedidos" class="row g-3">
-                            <!-- Aquí se inyectarán las tarjetas dinámicamente con JS -->
+                            <!-- JS renderiza las tarjetas aquí -->
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN CONTACTO -->
+<!-- SECCIÓN CONTACTO -->
         <section id="contacto" class="mb-5 p-4 bg-white rounded shadow-sm">
             <h2 class="fw-bold mb-4 text-dark text-center">Contacto y Redes Sociales</h2>
             <div class="row">
@@ -195,7 +193,8 @@
                         <a href="https://wa.me/593990504129" target="_blank" class="btn btn-outline-success btn-sm px-3">WhatsApp</a>
                     </div>
 
-                    <div class="ratio ratio-16x9 shadow-sm rounded overflow-hidden">
+                    <!-- El video que faltaba -->
+                    <div class="ratio ratio-16x9 shadow-sm rounded overflow-hidden mt-4">
                         <iframe src="https://www.youtube.com/embed/dO-uKGsDApo" allowfullscreen></iframe>
                     </div>
                 </div>
@@ -211,8 +210,13 @@
                 </div>
             </div>
         </section>
+        
     </main>
+    <!-- ========================================== -->
+    <!-- FIN BLOQUE DE CONTENIDO                    -->
+    <!-- ========================================== -->
 
+    <!-- LA PROMOCIÓN QUE FALTABA -->
     <aside class="container mb-5">
         <div class="p-4 bg-white border-start border-4 border-warning rounded shadow-sm">
             <h3 class="h5 fw-bold text-dark">Promoción de la Semana</h3>
@@ -220,13 +224,15 @@
         </div>
     </aside>
 
+    <!-- ========================================== -->
+    <!-- PIE DE PÁGINA REUTILIZABLE                 -->
+    <!-- ========================================== -->
     <footer class="text-center py-4 text-white">
         <p class="mb-0">Desarrollado por Diana Menendez | Asignatura: Desarrollo Web | Año: 2026</p>
     </footer>
 
     <!-- Bootstrap JS Bundle CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Archivo JavaScript Externo -->
-   <script src="js/script.js"></script>
+    <script src="js/script.js?v=3"></script>
 </body>
 </html>

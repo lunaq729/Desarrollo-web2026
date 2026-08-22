@@ -7,114 +7,158 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalRegistros = document.getElementById("totalRegistros");
     const alertaMensaje = document.getElementById("alertaMensaje");
 
-    let contador = 0;
+    // ==========================================
+    // SEMANA 7: USO DE ARREGLOS Y OBJETOS
+    // ==========================================
+    // Inicializamos el sistema con un par de registros de prueba (Objetos dentro de un Arreglo)
+    let baseDeDatosPedidos = [
+        { id: 1, nombre: "Café Americano", categoria: "Bebida", descripcion: "Para llevar, sin azúcar." },
+        { id: 2, nombre: "Tiramisú", categoria: "Repostería", descripcion: "Porción grande para consumir en el local." }
+    ];
+    let contadorId = 2; // Para asignar IDs únicos
 
-    // Validación Nombre: Debe iniciar con MAYÚSCULA y mínimo 3 letras
+    // ==========================================
+    // SEMANA 7: RENDERIZADO DINÁMICO Y BUCLES
+    // ==========================================
+    const renderizarPedidos = () => {
+        // Limpiamos el contenedor
+        listaPedidos.innerHTML = "";
+        
+        // CONDICIÓN: Si el arreglo está vacío, mostrar un mensaje
+        if (baseDeDatosPedidos.length === 0) {
+            listaPedidos.innerHTML = `<div class="col-12"><div class="alert alert-info text-center">No hay registros activos en este momento.</div></div>`;
+            totalRegistros.textContent = `Total: 0`;
+            return;
+        }
+
+        // BUCLE (Estructura repetitiva) para recorrer el arreglo de objetos
+        baseDeDatosPedidos.forEach((pedido) => {
+            
+            // CONDICIÓN: Asignar un color de etiqueta ('badge') dependiendo de la categoría
+            let badgeClass = "bg-secondary";
+            if (pedido.categoria === "Bebida") badgeClass = "bg-primary";
+            else if (pedido.categoria === "Repostería") badgeClass = "bg-warning text-dark";
+            else if (pedido.categoria === "Desayuno") badgeClass = "bg-success";
+
+            // Creación del HTML evitando repetición manual
+            const col = document.createElement("div");
+            col.className = "col-md-12 mb-2";
+            col.innerHTML = `
+                <div class="card shadow-sm border-light">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title fw-bold text-dark mb-0">${pedido.nombre}</h5>
+                            <span class="badge ${badgeClass}">${pedido.categoria}</span>
+                        </div>
+                        <p class="card-text text-secondary mt-2 mb-2">${pedido.descripcion}</p>
+                        <button class="btn btn-outline-danger btn-sm" onclick="eliminarPedido(${pedido.id})">
+                            Eliminar Registro
+                        </button>
+                    </div>
+                </div>
+            `;
+            listaPedidos.appendChild(col);
+        });
+
+        // Actualizar contador visual
+        totalRegistros.textContent = `Total: ${baseDeDatosPedidos.length}`;
+    };
+
+    // Función global para eliminar usando el ID del objeto
+    window.eliminarPedido = (id) => {
+        // Filtramos el arreglo para quitar el elemento con ese ID
+        baseDeDatosPedidos = baseDeDatosPedidos.filter(pedido => pedido.id !== id);
+        renderizarPedidos(); // Volvemos a dibujar
+    };
+
+    // ==========================================
+    // SEMANA 6: FUNCIONES DE VALIDACIÓN
+    // ==========================================
     const validarNombre = () => {
         const valor = nombreInput.value.trim();
-        const esValido = /^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúñÁÉÍÓÚÑ\s]{2,}$/.test(valor);
-        
-        if (esValido) {
+        if (/^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúñÁÉÍÓÚÑ\s]{2,}$/.test(valor)) {
             nombreInput.classList.remove("is-invalid");
             nombreInput.classList.add("is-valid");
+            return true;
         } else {
             nombreInput.classList.remove("is-valid");
             nombreInput.classList.add("is-invalid");
+            return false;
         }
-        return esValido;
     };
 
-    // Validación Categoría: Debe seleccionar una opción
     const validarCategoria = () => {
-        const esValido = categoriaSelect.value !== "";
-        if (esValido) {
+        if (categoriaSelect.value !== "") {
             categoriaSelect.classList.remove("is-invalid");
             categoriaSelect.classList.add("is-valid");
+            return true;
         } else {
             categoriaSelect.classList.remove("is-valid");
             categoriaSelect.classList.add("is-invalid");
+            return false;
         }
-        return esValido;
     };
 
-    // Validación Descripción: Mínimo 10 caracteres
     const validarDescripcion = () => {
-        const valor = descInput.value.trim();
-        const esValido = valor.length >= 10;
-        if (esValido) {
+        if (descInput.value.trim().length >= 10) {
             descInput.classList.remove("is-invalid");
             descInput.classList.add("is-valid");
+            return true;
         } else {
             descInput.classList.remove("is-valid");
             descInput.classList.add("is-invalid");
+            return false;
         }
-        return esValido;
     };
 
-    // Eventos de validación inmediata mientras el usuario escribe o cambia la opción
+    // Eventos de validación en tiempo real
     nombreInput.addEventListener("input", validarNombre);
+    nombreInput.addEventListener("blur", validarNombre);
     categoriaSelect.addEventListener("change", validarCategoria);
+    categoriaSelect.addEventListener("blur", validarCategoria);
     descInput.addEventListener("input", validarDescripcion);
+    descInput.addEventListener("blur", validarDescripcion);
 
-    // Evento Submit del Formulario
+    // ==========================================
+    // SEMANA 6 & 7: CAPTURA DEL EVENTO SUBMIT
+    // ==========================================
     form.addEventListener("submit", (e) => {
-        e.preventDefault(); // Evita que la página se recargue
+        e.preventDefault(); 
 
         const isNombreOk = validarNombre();
         const isCategoriaOk = validarCategoria();
         const isDescOk = validarDescripcion();
 
-        // Si algún campo no pasa la validación, muestra alerta de error y detiene el proceso
-        if (!isNombreOk || !isCategoriaOk || !isDescOk) {
-            alertaMensaje.innerHTML = `
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    Revisa los campos marcados en rojo. Recuerda usar mayúscula inicial en el nombre y mínimo 10 caracteres en la descripción.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>`;
-            return;
+        // Validar antes de registrar
+        if (isNombreOk && isCategoriaOk && isDescOk) {
+            
+            // Creamos un NUEVO OBJETO y lo metemos al arreglo
+            contadorId++;
+            const nuevoPedido = {
+                id: contadorId,
+                nombre: nombreInput.value.trim(),
+                categoria: categoriaSelect.value,
+                descripcion: descInput.value.trim()
+            };
+            
+            baseDeDatosPedidos.push(nuevoPedido); // Agregamos al array
+            
+            renderizarPedidos(); // Volvemos a dibujar toda la lista
+
+            alertaMensaje.innerHTML = `<div class="alert alert-success alert-dismissible fade show">¡Registro guardado en el arreglo con éxito!</div>`;
+            setTimeout(() => { alertaMensaje.innerHTML = ""; }, 3000);
+
+            // Limpiar formulario y clases
+            form.reset();
+            nombreInput.classList.remove("is-valid", "is-invalid");
+            categoriaSelect.classList.remove("is-valid", "is-invalid");
+            descInput.classList.remove("is-valid", "is-invalid");
+        } else {
+            alertaMensaje.innerHTML = `<div class="alert alert-danger alert-dismissible fade show">Verifique los errores en rojo antes de continuar.</div>`;
+            setTimeout(() => { alertaMensaje.innerHTML = ""; }, 3000);
         }
-
-        // Si pasa todas las validaciones, registra el ítem
-        contador++;
-        totalRegistros.textContent = `Total de registros actuales: ${contador}`;
-
-        const col = document.createElement("div");
-        col.className = "col-12 mb-2";
-        col.innerHTML = `
-            <div class="card shadow-sm border-warning p-3">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <h5 class="card-title fw-bold text-dark m-0">${contador}. ${nombreInput.value.trim()}</h5>
-                    <span class="badge bg-warning text-dark">${categoriaSelect.value}</span>
-                </div>
-                <p class="card-text text-secondary mb-3">${descInput.value.trim()}</p>
-                <div>
-                    <button class="btn btn-danger btn-sm btn-eliminar">Eliminar</button>
-                </div>
-            </div>
-        `;
-
-        // Evento para eliminar registro dinámicamente
-        col.querySelector(".btn-eliminar").addEventListener("click", () => {
-            col.remove();
-            contador--;
-            totalRegistros.textContent = `Total de registros actuales: ${contador}`;
-        });
-
-        listaPedidos.appendChild(col);
-
-        // Mensaje de éxito
-        alertaMensaje.innerHTML = `
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                ¡Registro guardado correctamente!
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>`;
-
-        // Limpieza de campos y estados de Bootstrap
-        form.reset();
-        nombreInput.classList.remove("is-valid", "is-invalid");
-        categoriaSelect.classList.remove("is-valid", "is-invalid");
-        descInput.classList.remove("is-valid", "is-invalid");
-
-        setTimeout(() => { alertaMensaje.innerHTML = ""; }, 3000);
     });
+
+    // Llamada inicial para dibujar los datos precargados al abrir la página
+    renderizarPedidos();
 });
