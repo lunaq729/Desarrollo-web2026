@@ -7,51 +7,44 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalRegistros = document.getElementById("totalRegistros");
     const alertaMensaje = document.getElementById("alertaMensaje");
 
-    // ==========================================
-    // SEMANA 7: USO DE ARREGLOS Y OBJETOS
-    // ==========================================
-    // Inicializamos el sistema con un par de registros de prueba (Objetos dentro de un Arreglo)
+    // Inicializar Modal de Bootstrap (SEMANA 8)
+    const modalEliminar = new bootstrap.Modal(document.getElementById('modalEliminar'));
+    let idAEliminar = null; 
+
+    // Base de datos simulada (SEMANA 7)
     let baseDeDatosPedidos = [
         { id: 1, nombre: "Café Americano", categoria: "Bebida", descripcion: "Para llevar, sin azúcar." },
         { id: 2, nombre: "Tiramisú", categoria: "Repostería", descripcion: "Porción grande para consumir en el local." }
     ];
-    let contadorId = 2; // Para asignar IDs únicos
+    let contadorId = 2; 
 
-    // ==========================================
-    // SEMANA 7: RENDERIZADO DINÁMICO Y BUCLES
-    // ==========================================
     const renderizarPedidos = () => {
-        // Limpiamos el contenedor
         listaPedidos.innerHTML = "";
         
-        // CONDICIÓN: Si el arreglo está vacío, mostrar un mensaje
         if (baseDeDatosPedidos.length === 0) {
-            listaPedidos.innerHTML = `<div class="col-12"><div class="alert alert-info text-center">No hay registros activos en este momento.</div></div>`;
+            listaPedidos.innerHTML = `<div class="col-12"><div class="alert alert-info text-center shadow-sm">No hay registros activos en este momento.</div></div>`;
             totalRegistros.textContent = `Total: 0`;
             return;
         }
 
-        // BUCLE (Estructura repetitiva) para recorrer el arreglo de objetos
         baseDeDatosPedidos.forEach((pedido) => {
-            
-            // CONDICIÓN: Asignar un color de etiqueta ('badge') dependiendo de la categoría
             let badgeClass = "bg-secondary";
             if (pedido.categoria === "Bebida") badgeClass = "bg-primary";
             else if (pedido.categoria === "Repostería") badgeClass = "bg-warning text-dark";
             else if (pedido.categoria === "Desayuno") badgeClass = "bg-success";
 
-            // Creación del HTML evitando repetición manual
             const col = document.createElement("div");
             col.className = "col-md-12 mb-2";
             col.innerHTML = `
-                <div class="card shadow-sm border-light">
+                <div class="card shadow-sm border-0 border-start border-4 border-primary">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title fw-bold text-dark mb-0">${pedido.nombre}</h5>
-                            <span class="badge ${badgeClass}">${pedido.categoria}</span>
+                            <span class="badge ${badgeClass} rounded-pill">${pedido.categoria}</span>
                         </div>
-                        <p class="card-text text-secondary mt-2 mb-2">${pedido.descripcion}</p>
-                        <button class="btn btn-outline-danger btn-sm" onclick="eliminarPedido(${pedido.id})">
+                        <p class="card-text text-secondary mt-2 mb-3">${pedido.descripcion}</p>
+                        <!-- Botón btn-outline-danger de Bootstrap -->
+                        <button class="btn btn-outline-danger btn-sm fw-semibold shadow-sm" onclick="prepararEliminacion(${pedido.id})">
                             Eliminar Registro
                         </button>
                     </div>
@@ -60,20 +53,33 @@ document.addEventListener("DOMContentLoaded", () => {
             listaPedidos.appendChild(col);
         });
 
-        // Actualizar contador visual
         totalRegistros.textContent = `Total: ${baseDeDatosPedidos.length}`;
     };
 
-    // Función global para eliminar usando el ID del objeto
-    window.eliminarPedido = (id) => {
-        // Filtramos el arreglo para quitar el elemento con ese ID
-        baseDeDatosPedidos = baseDeDatosPedidos.filter(pedido => pedido.id !== id);
-        renderizarPedidos(); // Volvemos a dibujar
+    // LÓGICA DE MODAL Y SPINNER (SEMANA 8)
+    window.prepararEliminacion = (id) => {
+        idAEliminar = id;
+        modalEliminar.show(); 
     };
 
-    // ==========================================
-    // SEMANA 6: FUNCIONES DE VALIDACIÓN
-    // ==========================================
+    document.getElementById('btnConfirmarEliminacion').addEventListener('click', () => {
+        const btnDelete = document.getElementById('btnConfirmarEliminacion');
+        const spinner = document.getElementById('deleteSpinner');
+        
+        spinner.classList.remove('d-none');
+        btnDelete.disabled = true;
+
+        setTimeout(() => {
+            baseDeDatosPedidos = baseDeDatosPedidos.filter(pedido => pedido.id !== idAEliminar);
+            renderizarPedidos();
+            modalEliminar.hide(); 
+            
+            spinner.classList.add('d-none');
+            btnDelete.disabled = false;
+        }, 1000); 
+    });
+
+    // VALIDACIONES DINÁMICAS (SEMANA 6)
     const validarNombre = () => {
         const valor = nombreInput.value.trim();
         if (/^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúñÁÉÍÓÚÑ\s]{2,}$/.test(valor)) {
@@ -111,7 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Eventos de validación en tiempo real
     nombreInput.addEventListener("input", validarNombre);
     nombreInput.addEventListener("blur", validarNombre);
     categoriaSelect.addEventListener("change", validarCategoria);
@@ -119,9 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
     descInput.addEventListener("input", validarDescripcion);
     descInput.addEventListener("blur", validarDescripcion);
 
-    // ==========================================
-    // SEMANA 6 & 7: CAPTURA DEL EVENTO SUBMIT
-    // ==========================================
+    // LÓGICA DE SPINNER Y ALERTAS AL AGREGAR (SEMANA 8)
     form.addEventListener("submit", (e) => {
         e.preventDefault(); 
 
@@ -129,36 +132,47 @@ document.addEventListener("DOMContentLoaded", () => {
         const isCategoriaOk = validarCategoria();
         const isDescOk = validarDescripcion();
 
-        // Validar antes de registrar
         if (isNombreOk && isCategoriaOk && isDescOk) {
             
-            // Creamos un NUEVO OBJETO y lo metemos al arreglo
-            contadorId++;
-            const nuevoPedido = {
-                id: contadorId,
-                nombre: nombreInput.value.trim(),
-                categoria: categoriaSelect.value,
-                descripcion: descInput.value.trim()
-            };
-            
-            baseDeDatosPedidos.push(nuevoPedido); // Agregamos al array
-            
-            renderizarPedidos(); // Volvemos a dibujar toda la lista
+            const btnSubmit = document.getElementById('btnSubmitForm');
+            const submitSpinner = document.getElementById('submitSpinner');
+            const btnSubmitText = document.getElementById('btnSubmitText');
 
-            alertaMensaje.innerHTML = `<div class="alert alert-success alert-dismissible fade show">¡Registro guardado en el arreglo con éxito!</div>`;
-            setTimeout(() => { alertaMensaje.innerHTML = ""; }, 3000);
+            submitSpinner.classList.remove('d-none');
+            btnSubmit.disabled = true;
+            btnSubmitText.textContent = "Procesando...";
 
-            // Limpiar formulario y clases
-            form.reset();
-            nombreInput.classList.remove("is-valid", "is-invalid");
-            categoriaSelect.classList.remove("is-valid", "is-invalid");
-            descInput.classList.remove("is-valid", "is-invalid");
+            setTimeout(() => {
+                contadorId++;
+                const nuevoPedido = {
+                    id: contadorId,
+                    nombre: nombreInput.value.trim(),
+                    categoria: categoriaSelect.value,
+                    descripcion: descInput.value.trim()
+                };
+                
+                baseDeDatosPedidos.push(nuevoPedido); 
+                renderizarPedidos(); 
+
+                alertaMensaje.innerHTML = `<div class="alert alert-success alert-dismissible fade show shadow-sm"><strong>¡Perfecto!</strong> El registro fue agregado al sistema.</div>`;
+                setTimeout(() => { alertaMensaje.innerHTML = ""; }, 3000);
+
+                form.reset();
+                nombreInput.classList.remove("is-valid", "is-invalid");
+                categoriaSelect.classList.remove("is-valid", "is-invalid");
+                descInput.classList.remove("is-valid", "is-invalid");
+
+                submitSpinner.classList.add('d-none');
+                btnSubmit.disabled = false;
+                btnSubmitText.textContent = "Agregar al Sistema";
+
+            }, 1200); 
+
         } else {
-            alertaMensaje.innerHTML = `<div class="alert alert-danger alert-dismissible fade show">Verifique los errores en rojo antes de continuar.</div>`;
+            alertaMensaje.innerHTML = `<div class="alert alert-danger alert-dismissible fade show shadow-sm"><strong>¡Atención!</strong> Verifique los errores en rojo antes de continuar.</div>`;
             setTimeout(() => { alertaMensaje.innerHTML = ""; }, 3000);
         }
     });
 
-    // Llamada inicial para dibujar los datos precargados al abrir la página
     renderizarPedidos();
 });
