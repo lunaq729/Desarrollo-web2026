@@ -1,13 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="card shadow-sm border-0 border-top border-4 border-warning">
-        <div class="card-body p-5 text-center">
-            <h1 class="fw-bold text-dark mb-3">Módulo de Proveedores</h1>
-            <p class="text-muted fs-5">Directorio de empresas que surten los insumos y materiales.</p>
-            <button class="btn btn-warning text-dark mt-3">Añadir Proveedor</button>
-        </div>
-    </div>
+<div class="container mt-5 mb-5">
+    <h2 class="fw-bold text-center mb-4 text-dark">Nuestros Proveedores</h2>
+    <ul class="list-group shadow-sm">
+        {% for proveedor in proveedores %}
+        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+            <div>
+                <h5 class="mb-1 fw-bold">{{ proveedor.empresa }}</h5>
+                <small class="text-muted">Insumo principal: {{ proveedor.insumo }}</small>
+            </div>
+            <span class="badge bg-info text-dark rounded-pill">Activo</span>
+        </li>
+        {% endfor %}
+    </ul>
 </div>
 {% endblock %}

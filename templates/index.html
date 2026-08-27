@@ -13,7 +13,7 @@
         <section id="inicio" class="mb-5 text-center p-4 bg-white rounded shadow-sm">
             <h2 class="fw-bold mb-3 text-dark">Inicio</h2>
             <p class="text-muted fs-5">Nos alegra tenerte por aquí. En nuestra casa combinamos la pasión por el buen café con un espacio acogedor y un sistema digital moderno para brindarte una atención rápida, cálida y de excelente calidad en cada visita.</p>
-            <a href="#servicios" class="btn btn-primary btn-lg mt-2 shadow-sm">Ver Catálogo de Productos</a>
+            <a href="{{ url_for('productos') }}" class="btn btn-primary btn-lg mt-2 shadow-sm">Ver Catálogo de Productos</a>
         </section>
 
         <section id="quienes-somos" class="mb-5 p-4 bg-white rounded shadow-sm">
@@ -125,7 +125,7 @@
             </div>
         </section>
 
-        <!-- SECCIÓN CONTACTO -->
+        <!-- SECCIÓN CONTACTO Y REDES -->
         <section id="contacto" class="mb-5 p-4 bg-white rounded shadow-sm">
             <h2 class="fw-bold mb-4 text-dark text-center">Contacto y Redes Sociales</h2>
             <div class="row">
@@ -140,6 +140,11 @@
                         <a href="#" class="btn btn-outline-danger btn-sm px-3">Instagram</a>
                         <a href="#" class="btn btn-outline-dark btn-sm px-3">TikTok</a>
                         <a href="#" class="btn btn-outline-success btn-sm px-3">WhatsApp</a>
+                    </div>
+                    
+                    <!-- EL VIDEO ESTÁ AQUÍ -->
+                    <div class="ratio ratio-16x9 shadow-sm rounded overflow-hidden mt-4">
+                        <iframe src="https://www.youtube.com/embed/dO-uKGsDApo" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -176,7 +181,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <!-- Botón con clase btn-danger y Spinner -->
                     <button type="button" class="btn btn-danger fw-bold" id="btnConfirmarEliminacion">
                         <span class="spinner-border spinner-border-sm d-none me-2" id="deleteSpinner" role="status" aria-hidden="true"></span>
                         Sí, eliminar

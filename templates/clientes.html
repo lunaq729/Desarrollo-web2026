@@ -1,13 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="card shadow-sm border-0 border-top border-4 border-success">
-        <div class="card-body p-5 text-center">
-            <h1 class="fw-bold text-dark mb-3">Módulo de Clientes</h1>
-            <p class="text-muted fs-5">Aquí podrás ver y registrar a los clientes frecuentes de la cafetería.</p>
-            <button class="btn btn-success mt-3">Registrar Cliente</button>
-        </div>
+<div class="container mt-5 mb-5">
+    <h2 class="fw-bold text-center mb-4 text-dark">Directorio de Clientes</h2>
+    <div class="table-responsive shadow-sm rounded">
+        <table class="table table-hover bg-white mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre del Cliente</th>
+                    <th>Correo Electrónico</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                <tr>
+                    <td class="fw-bold">{{ cliente.nombre }}</td>
+                    <td>{{ cliente.correo }}</td>
+                    <td>
+                        {% if cliente.frecuente %}
+                            <span class="badge bg-warning text-dark">Cliente Frecuente</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Nuevo Cliente</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}

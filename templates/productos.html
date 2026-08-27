@@ -1,13 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="card shadow-sm border-0 border-top border-4 border-primary">
-        <div class="card-body p-5 text-center">
-            <h1 class="fw-bold text-dark mb-3">Módulo de Productos</h1>
-            <p class="text-muted fs-5">Aquí se gestionará el catálogo de cafés y repostería.</p>
-            <button class="btn btn-primary mt-3">Agregar Nuevo Producto</button>
+<div class="container mt-5 mb-5">
+    <h2 class="fw-bold text-center mb-4 text-dark">Catálogo de Productos</h2>
+    <div class="row g-4">
+        <!-- Ciclo FOR de Jinja2 para recorrer los productos -->
+        {% for producto in productos %}
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 border-0 border-top border-4 border-primary">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">{{ producto.nombre }}</h5>
+                    <p class="card-text text-muted">{{ producto.descripcion }}</p>
+                    <h5 class="text-primary fw-bold">${{ producto.precio }}</h5>
+                    
+                    <!-- Condicional IF de Jinja2 -->
+                    {% if producto.disponible %}
+                        <span class="badge bg-success">Disponible</span>
+                    {% else %}
+                        <span class="badge bg-danger">Agotado temporalmente</span>
+                    {% endif %}
+                </div>
+            </div>
         </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
